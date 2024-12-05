@@ -14,6 +14,8 @@
         <h1>Contacto</h1>
         <p>¡Nos encantaría saber de ti!</p>
     </header>
+
+    <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">FastFood Delight</a>
@@ -23,11 +25,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="menu.html">Menú</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menú</a></li>
                     <li class="nav-item"><a class="nav-link" href="offers.html">Promociones</a></li>
                     <li class="nav-item"><a class="nav-link" href="reservation.html">Reservas</a></li>
                     <li class="nav-item"><a class="nav-link" href="about.html">Sobre Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contacto</a></li>
                 </ul>
             </div>
         </div>
@@ -64,33 +66,4 @@
     </main>
 
     <!-- Pie de Página -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <p>&copy; 2024 FastFood Delight. Todos los derechos reservados.</p>
-    </footer>
-
-    <!-- Scripts -->
-    <script>
-        // Captura del formulario y manejo del envío
-        document.getElementById("contact-form").addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            // Captura de los valores del formulario
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const message = document.getElementById("message").value;
-
-            // Mostrar mensaje de confirmación
-            const confirmationElement = document.getElementById("confirmation");
-            confirmationElement.innerHTML = `
-                <strong>¡Mensaje enviado!</strong> Gracias, ${name}. Hemos recibido tu mensaje:
-                <blockquote>"${message}"</blockquote>
-                Nos pondremos en contacto contigo al correo ${email}.
-            `;
-            confirmationElement.classList.remove("d-none");
-
-            // Limpiar formulario después de mostrar el mensaje
-            e.target.reset();
-        });
-    </script>
-</body>
-</html>
+    <footer class="bg-dark text-white text
