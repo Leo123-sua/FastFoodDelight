@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas - FastFood Delight</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="bg-info text-white text-center py-4">
+        <h1>Reservas</h1>
+        <p>¡Reserva tu mesa ahora y disfruta de una experiencia inolvidable!</p>
+    </header>
+
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">FastFood Delight</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegación">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="menu.html">Menú</a></li>
+                    <li class="nav-item"><a class="nav-link" href="offers.html">Promociones</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="reservation.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">Sobre Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Formulario de Reservas -->
+    <main class="container mt-5">
+        <h2 class="text-center">Formulario de Reserva</h2>
+        <p class="text-center">Completa los campos para reservar tu mesa y selecciona los productos que deseas disfrutar.</p>
+        <form id="reservation-form" class="mt-4">
+            <!-- Información del Usuario -->
+            <div class="mb-3">
+                <label for="name" class="form-label"><i class="fas fa-user"></i> Nombre Completo</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label"><i class="fas fa-envelope"></i> Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label"><i class="fas fa-phone"></i> Teléfono</label>
+                <input type="tel" class="form-control" id="phone" required>
+            </div>
+
+            <!-- Selección de Fecha y Hora -->
+            <div class="mb-3">
+                <label for="date" class="form-label"><i class="fas fa-calendar-alt"></i> Fecha</label>
+                <input type="date" class="form-control" id="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="time" class="form-label"><i class="fas fa-clock"></i> Hora</label>
+                <input type="time" class="form-control" id="time" required>
+            </div>
+            <div class="mb-3">
+                <label for="people" class="form-label"><i class="fas fa-users"></i> Número de Personas</label>
+                <input type="number" class="form-control" id="people" min="1" max="20" required>
+            </div>
+
+            <!-- Selección de Productos -->
+           
+                        <div class="mb-3">
+                            
+                            <div id="products">
+                                <div class="row">
+                                    <!-- Productos del Menú -->
+                                   
+                                    
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <h4>Total: $<span id="total-price">0.00</span></h4>
+                            </div>
+                        </div>
+
+            <!-- Mensaje Opcional -->
+            <div class="mb-3">
+                <label for="message" class="form-label"><i class="fas fa-comment-dots"></i> Mensaje (Opcional)</label>
+                <textarea class="form-control" id="message" rows="3"></textarea>
+            </div>
+
+            <!-- Enviar Reserva -->
+            <button type="submit" class="btn btn-primary w-100">Enviar Reserva</button>
+        </form>
+
+        <!-- Confirmación -->
+        <div id="reservation-success" class="alert alert-success mt-4 d-none" role="alert">
+            ¡Tu reserva ha sido enviada con éxito! Nos pondremos en contacto contigo pronto.
+        </div>
+    </main>
+
+    <!-- Pie de Página -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 FastFood Delight. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Scripts -->
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const productsContainer = document.getElementById('products');
+            const totalPriceElement = document.getElementById('total-price');
+            let totalPrice = 0;
+    
+            cart.forEach(item => {
+                const row = document.createElement('div');
+                row.classList.add('row', 'mb-2');
+                row.innerHTML = `
+                    <div class="col-8">${item.name} x${item.quantity}</div>
+                    <div class="col-4 text-end">$${(item.price * item.quantity).toFixed(2)}</div>
+                `;
+                productsContainer.appendChild(row);
+                totalPrice += item.price * item.quantity;
+            });
+    
+            totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+        });
+    
+        document.getElementById('reservation-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const people = document.getElementById('people').value;
+    
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const products = cart.map(item => `${item.name} x${item.quantity} ($${(item.price * item.quantity).toFixed(2)})`);
+            const totalPrice = document.getElementById('total-price').textContent;
+    
+            const successMessage = `
+                ¡Gracias, ${name}!<br>
+                Hemos recibido tu reserva para ${people} personas el ${date} a las ${time}.<br>
+                Productos seleccionados: ${products.join(', ')}.<br>
+                Total: ${totalPrice}.<br>
+                Nos pondremos en contacto a través del correo ${email} o el teléfono ${phone}.
+            `;
+    
+            const confirmationElement = document.getElementById('reservation-success');
+            confirmationElement.innerHTML = successMessage;
+            confirmationElement.classList.remove('d-none');
+    
+            setTimeout(() => {
+                confirmationElement.classList.add('d-none');
+                e.target.reset();
+                localStorage.removeItem('cart');
+            }, 9000);
+        });
+    </script>
+    
+</body>
+</html>
